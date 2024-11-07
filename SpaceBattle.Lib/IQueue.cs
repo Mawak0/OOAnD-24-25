@@ -1,9 +1,12 @@
-public interface IQueue {
-    void Add(ICommand cmd);
-    ICommand Take();
+public interface ISender{
+    public ICommand Take();
 }
 
-public class Queue: IQueue {
+public interface IReceiver{
+    public void Add(ICommand icom);
+}
+
+public class Queue: ISender, IReceiver {
 
     Queue<ICommand> qdata;
     public void Add(ICommand cmd){
