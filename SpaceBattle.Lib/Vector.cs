@@ -1,8 +1,10 @@
 using System;
 
-public interface IVector {
-    int Length {set;}
-    int[] Values {get; set;}
+
+public interface IVector
+{
+    public int Length {get;}
+    public int[] Values {get; set;}
 }
 
 
@@ -10,50 +12,48 @@ public class Vector: IVector
 {
     private int[] elements;
 
-    // Конструктор, принимающий размер вектора
     public Vector(int size)
     {
         elements = new int[size];
     }
-
-    // Конструктор, принимающий массив значений
     public Vector(int[] values)
     {
         elements = new int[values.Length];
         values.CopyTo(elements, 0);
     }
 
-    // Индексатор для доступа к элементам вектора
     public int this[int index]
     {
         get => elements[index];
         set => elements[index] = value;
     }
 
-    // Свойство для получения длины вектора
-    public int Length => elements.Length;
-
-   // Доступ к значениям вектора для записи и вывода
-    public int[] Values {
+    public int[] Values
+    {
        get => elements;
        set => elements = value;
     }
+    public int Length
+    { 
+        get => elements.Length;
+    }
 
-    // Переопределение оператора сложения для векторов
     public static Vector operator +(Vector v1, Vector v2)
     {
         if (v1.Length != v2.Length)
             throw new ArgumentException("Vectors must be of the same length");
-
-        int[] result = new int[v1.Length];
-        for (int i = 0; i < v1.Length; i++)
-        {
-            result[i] = v1[i] + v2[i];
-        }
+        var result = array1.Zip(array2, (a, b) => a + b).ToArray();
         return new Vector(result);
     }
+    public static bool operator ==(Vector v1, Vector v2)
+    {
+        return v1.CompareTo(v2) == 1;
+    }
+    public static bool operator !=(Vector v1, Vector v2)
+    {
+        return !(v1.CompareTo(v2) == 1);
+    }
 
-    // Метод для отображения вектора
     public override string ToString()
     {
         return $"[{string.Join(", ", elements)}]";
