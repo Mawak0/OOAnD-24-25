@@ -21,3 +21,19 @@ public class End: ICommand
         queue.Take();
     }
 }
+
+public class MCommand: ICommand
+{
+    ICommand com;
+    object rcom;
+
+    public MCommand(ICommand c, ref ICommand rc){
+        com = c;
+        rcom = rc;
+    }
+
+    public void Execute(){
+        com.Execute();
+        queue.Add(rcom);
+    }
+}
