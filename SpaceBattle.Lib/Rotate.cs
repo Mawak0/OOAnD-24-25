@@ -33,6 +33,5 @@ public class RotateCommand : ICommand
         Console.WriteLine($"parts: {obj.PositionAngle[0]} / {obj.PositionAngle[1]}");
         Console.WriteLine($"radians: {radians}");
         Console.WriteLine($"degrees: {degrees}");
-
     }
 }
