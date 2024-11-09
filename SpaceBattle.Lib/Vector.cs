@@ -10,7 +10,7 @@ public interface IVector
 
 public class Vector: IVector
 {
-    private int[] elements;
+    int[] elements;
 
     public Vector(int size)
     {
@@ -33,25 +33,28 @@ public class Vector: IVector
        get => elements;
        set => elements = value;
     }
-    public int Length
-    { 
-        get => elements.Length;
-    }
+    public int Length => elements.Length;
 
     public static Vector operator +(Vector v1, Vector v2)
     {
         if (v1.Length != v2.Length)
             throw new ArgumentException("Vectors must be of the same length");
-        var result = array1.Zip(array2, (a, b) => a + b).ToArray();
+        var result = v1.Values.Zip(v2.Values, (a, b) => a + b).ToArray();
         return new Vector(result);
     }
     public static bool operator ==(Vector v1, Vector v2)
     {
-        return v1.CompareTo(v2) == 1;
+        if (v1.Length != v2.Length)
+            throw new ArgumentException("Vectors must be of the same length");
+        var result = v1.Values.SequenceEqual(v2.Values);
+        return result;
     }
     public static bool operator !=(Vector v1, Vector v2)
     {
-        return !(v1.CompareTo(v2) == 1);
+        if (v1.Length != v2.Length)
+            throw new ArgumentException("Vectors must be of the same length");
+        var result = v1.Values.SequenceEqual(v2.Values);
+        return !result;
     }
 
     public override string ToString()
