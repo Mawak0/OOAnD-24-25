@@ -1,10 +1,9 @@
 ﻿﻿namespace SpaceBattle.Lib;
 
-
 public interface IMoving
 {
-    int[] Position { get; set; }
-    int[] Velocity { get; }
+    Vector Position { get; set; }
+    Vector Velocity { get; }
 }
 
 public interface ICommand
@@ -21,9 +20,6 @@ public class MoveCommand : ICommand
     }
     public void Execute()
     {
-        obj.Position = new int[]{
-            obj.Position[0] + obj.Velocity[0],
-            obj.Position[1] + obj.Velocity[1],
-        };
+        obj.Position =  obj.Position + obj.Velocity;
     }
 }
