@@ -34,23 +34,38 @@ public class Angle: IVector
 
     public override string ToString()
     {
-        return $"Angle [{string.Join(", ", obj.Values)}] ({obj.Values[0] / obj.Values[1] * 360} deg)";
+        return $"Angle [{string.Join(", ", obj.Values)}] ({(double)obj.Values[0] / (double)obj.Values[1] * 360} deg)";
     }
 
     public static Angle operator +(Angle a1, Angle a2)
     {
-        var result = a1.Values.Zip(a2.Values, (a, b) => a + b).ToArray();
-        var mockAngle = new Mock<IVector>();
-        mockAngle.SetupGet(a => a.Values).Returns(result);
-        var resAngle = new Angle(mockAngle.Object);
-        return resAngle;
+        if (a1[1] != a2[1])
+            throw new ArgumentException("Angels must be with the same denominator");
+        else
+        {
+            var result = new int[]{a1[0] + a2[0], a1[1]};
+            var mockAngle = new Mock<IVector>();
+            mockAngle.SetupGet(a => a.Values).Returns(result);
+            var resAngle = new Angle(mockAngle.Object);
+            resAngle.makeCorrect();
+            return resAngle;
+        }
+        
     }
 
     public static bool operator ==(Angle a1, Angle a2)
     {
-        double[] coefs = [a1[0] / a2[0], a1[1] / a2[1]];
-        return coefs[0] == coefs[1];
+        if (a1[1] != a2[1])
+            throw new ArgumentException("Angels must be with the same denominator");
+        else
+        {
+            double[] coefs = [a1[0] / a2[0], a1[1] / a2[1]];
+            if (coefs[0] == (int)coefs[0] && coefs[1] == (int)coefs[1])
+                return coefs[0] == coefs[1];
+            return false;
+        }
     }
+
     public static bool operator !=(Angle a1, Angle a2)
     {
         return !(a1 == a2);
