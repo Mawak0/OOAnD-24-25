@@ -59,7 +59,7 @@ public class Vector: IVector
             return obj is Vector vector && this == vector;
         }
 
-        public override int GetHashCode()
+    public override int GetHashCode()
         {
             return obj.Values.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
         }

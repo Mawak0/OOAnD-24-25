@@ -46,4 +46,14 @@ public class Angle: IVector
         return resAngle;
     }
 
+    public override bool Equals(object obj)
+        {
+            return obj is Angle angle && this == angle;
+        }
+
+    public override int GetHashCode()
+        {
+            return obj.Values.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
+        }
+
 }
