@@ -1,3 +1,5 @@
+using SpaceBattle.Lib;
+
 public class Angle: IVector
 {
     int[] elements;
