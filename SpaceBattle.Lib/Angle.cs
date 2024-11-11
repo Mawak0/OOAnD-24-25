@@ -46,6 +46,16 @@ public class Angle: IVector
         return resAngle;
     }
 
+    public static bool operator ==(Angle a1, Angle a2)
+    {
+        double[] coefs = [a1[0] / a2[0], a1[1] / a2[1]];
+        return coefs[0] == coefs[1];
+    }
+    public static bool operator !=(Angle a1, Angle a2)
+    {
+        return !(a1 == a2);
+    }
+
     public override bool Equals(object obj)
         {
             return obj is Angle angle && this == angle;
