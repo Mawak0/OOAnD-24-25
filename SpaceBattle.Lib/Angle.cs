@@ -1,48 +1,49 @@
 using SpaceBattle.Lib;
+using Moq;
 
 public class Angle: IVector
 {
-    int[] elements;
-
-    public Angle(int[] values)
+    private readonly IVector obj;
+    public Angle(IVector obj)
     {
-        elements = new int[values.Length];
-        makeCorrect();
-        values.CopyTo(elements, 0);
+        this.obj = obj;
     }
 
     public int this[int index]
     {
-        get => elements[index];
+        get => obj.Values[index];
         set 
         {
-            elements[index] = value;
-             makeCorrect();
+            obj.Values[index] = value;
+            makeCorrect();
         }
     }
 
     public int[] Values
     {
-       get => elements;
-       set => elements = value;
+       get => obj.Values;
+       set => obj.Values = value;
     }
-    public int Length => elements.Length;
+    public int Length => obj.Values.Length;
 
     public void makeCorrect()
     {
-        if (elements[0] > elements[1])
-            elements[0] -= elements[1];
+        if (obj.Values[0] > obj.Values[1])
+            obj.Values[0] -= obj.Values[1];
     }
 
     public override string ToString()
     {
-        return $"Angle [{string.Join(", ", elements)}] ({elements[0] / elements[1] * 360} deg)";
+        return $"Angle [{string.Join(", ", obj.Values)}] ({obj.Values[0] / obj.Values[1] * 360} deg)";
     }
 
     public static Angle operator +(Angle a1, Angle a2)
     {
         var result = a1.Values.Zip(a2.Values, (a, b) => a + b).ToArray();
-        return new Angle(result);
+        var mockAngle = new Mock<IVector>();
+        mockAngle.SetupGet(a => a.Values).Returns(result);
+        var resAngle = new Angle(mockAngle.Object);
+        return resAngle;
     }
 
 }
