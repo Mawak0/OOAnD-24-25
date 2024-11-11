@@ -1,4 +1,4 @@
-﻿﻿namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
 
 public interface IMoving
 {
@@ -20,6 +20,6 @@ public class MoveCommand : ICommand
     }
     public void Execute()
     {
-        obj.Position =  obj.Position + obj.Velocity;
+        obj.Position = obj.Position + obj.Velocity;
     }
 }
