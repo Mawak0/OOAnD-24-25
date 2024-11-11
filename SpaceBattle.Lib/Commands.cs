@@ -1,37 +1,50 @@
-﻿public interface ICommand
+﻿namespace SpaceBattle.Lib;
+
+public interface ICommand
 {
     public void Execute();
 }
 
 public class Start : ICommand
 {
-    private ICommand exCom;
-    public void Execute()
-    {
-        queue.Add(exCom);
-    }
+    private readonly ICommand exCom;
+    private readonly Queue refQueue;
 
-    public void SetCommand(ICommand c)
+    public Start(ref Queue q, ref ICommand c)
     {
         exCom = c;
+        refQueue = q;
+    }
+    public void Execute()
+    {
+        refQueue.Add(exCom);
     }
 }
 
 public class End : ICommand
 {
+    private readonly Queue refQueue;
+
+    public End(ref Queue q)
+    {
+        refQueue = q;
+    }
     public void Execute()
     {
-        queue.Take();
+        refQueue.Take();
     }
 }
 
 public class MCommand : ICommand
 {
     private readonly ICommand com;
-    private readonly object rcom;
+    private readonly ICommand rcom;
 
-    public MCommand(ICommand c, ref ICommand rc)
+    private readonly Queue refQueue;
+
+    public MCommand(ref Queue q, ICommand c, ref ICommand rc)
     {
+        refQueue = q;
         com = c;
         rcom = rc;
     }
@@ -39,6 +52,6 @@ public class MCommand : ICommand
     public void Execute()
     {
         com.Execute();
-        queue.Add(rcom);
+        refQueue.Add(rcom);
     }
 }

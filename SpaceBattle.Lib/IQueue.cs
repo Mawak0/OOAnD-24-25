@@ -1,4 +1,6 @@
-﻿public interface ISender
+﻿namespace SpaceBattle.Lib;
+
+public interface ISender
 {
     public ICommand Take();
 }
