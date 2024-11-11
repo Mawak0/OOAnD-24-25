@@ -1,5 +1,6 @@
 using System;
 
+namespace SpaceBattle.Lib;
 
 public interface IVector
 {
@@ -56,6 +57,15 @@ public class Vector: IVector
         var result = v1.Values.SequenceEqual(v2.Values);
         return !result;
     }
+     public override bool Equals(object obj)
+        {
+            return obj is Vector vector && this == vector;
+        }
+
+        public override int GetHashCode()
+        {
+            return elements.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
+        }
 
     public override string ToString()
     {
