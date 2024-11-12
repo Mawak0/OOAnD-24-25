@@ -3,22 +3,22 @@ using Xunit;
 
 namespace SpaceBattle.Lib.Tests;
 
-public class MoveCommandTest
+public class RotateCommandTest
 {
 
     [Fact]
-    public void MoveCommandPositive()
+    public void RotateCommandPositive()
     {
-        var movable = new Mock<IRotate>();
+        var rotating = new Mock<IRotate>();
 
-        movable.SetupGet(m => m.PositionAngle).Returns([1, 8]).Verifiable();
-        movable.SetupGet(m => m.VelocityAngle).Returns([2, 8]).Verifiable();
+        rotating.SetupGet(m => m.PositionAngle).Returns([1, 8]).Verifiable();
+        rotating.SetupGet(m => m.VelocityAngle).Returns([2, 8]).Verifiable();
 
-        ICommand moveCommand = new RotateCommand(movable.Object);
+        ICommand rotateCommand = new RotateCommand(rotating.Object);
 
-        moveCommand.Execute();
+        rotateCommand.Execute();
 
-        movable.VerifySet(m => m.PositionAngle = [3, 8], Times.Once);
-        movable.VerifyAll(); 
+        rotating.VerifySet(m => m.PositionAngle = [3, 8], Times.Once);
+        rotating.VerifyAll(); 
     }
 }
