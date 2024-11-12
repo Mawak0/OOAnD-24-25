@@ -1,10 +1,9 @@
 ﻿namespace SpaceBattle.Lib;
-using System;
 
 public interface IRotate
 {
-    Vector PositionAngle { get; set;}
-    Vector VelocityAngle { get; }
+    int[] PositionAngle { get; set;}
+    int[] VelocityAngle { get; }
 }
 
 public interface ICommand
@@ -21,17 +20,12 @@ public class RotateCommand : ICommand
     }
     public void Execute()
     {
-        obj.PositionAngle = new Vector{
+        obj.PositionAngle = new int[]{
             obj.PositionAngle[0] + obj.VelocityAngle[0],
             obj.PositionAngle[1] + 0,
         };
 
         obj.PositionAngle[0] = obj.PositionAngle[0] % obj.PositionAngle[1];
-        double radians = Convert.ToDouble(2 * obj.PositionAngle[0] * 22) / Convert.ToDouble(obj.VelocityAngle[1] * 7);
-        double degrees = Convert.ToDouble(obj.PositionAngle[0] * 360) / Convert.ToDouble(obj.VelocityAngle[1]);
 
-        Console.WriteLine($"parts: {obj.PositionAngle[0]} / {obj.PositionAngle[1]}");
-        Console.WriteLine($"radians: {radians}");
-        Console.WriteLine($"degrees: {degrees}");
     }
 }
