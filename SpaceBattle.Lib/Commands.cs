@@ -1,4 +1,6 @@
-﻿namespace SpaceBattle.Lib;
+﻿using System.Collections.ObjectModel;
+
+namespace SpaceBattle.Lib;
 
 public interface ICommand
 {
@@ -10,7 +12,7 @@ public class Start : ICommand
     private readonly ICommand exCom;
     private readonly Queue refQueue;
 
-    public Start(ref Queue q, ref ICommand c)
+    public Start(ref Queue q, ICommand c)
     {
         exCom = c;
         refQueue = q;
@@ -38,21 +40,19 @@ public class End : ICommand
 public class MCommand : ICommand
 {
     private readonly ICommand com;
-    private readonly ICommand rcom;
 
     private readonly Queue refQueue;
 
-    public MCommand(ref Queue q, ICommand c, ref ICommand rc)
+    public MCommand(ref Queue q, ICommand c)
     {
         refQueue = q;
         com = c;
-        rcom = rc;
     }
 
     public void Execute()
     {
         com.Execute();
-        refQueue.Add(rcom);
+        refQueue.Add(com);
     }
 }
 
