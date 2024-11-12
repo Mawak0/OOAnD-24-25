@@ -12,7 +12,7 @@ public interface IReceiver
 
 public class Queue : ISender, IReceiver
 {
-    private readonly Queue<ICommand> qdata;
+    private readonly Queue<ICommand> qdata = new Queue<ICommand>();
     public void Add(ICommand cmd)
     {
         qdata.Enqueue(cmd);
@@ -20,7 +20,14 @@ public class Queue : ISender, IReceiver
 
     public ICommand Take()
     {
-        var qelem = qdata.Dequeue();
-        return qelem;
+        var ok = qdata.TryDequeue(out var qelem);
+        if (ok)
+        {
+            return qelem;
+        }
+        else
+        {
+            throw new Exception("There aren't any commands in queue!");
+        }
     }
 }

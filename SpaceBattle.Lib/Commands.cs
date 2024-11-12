@@ -55,3 +55,11 @@ public class MCommand : ICommand
         refQueue.Add(rcom);
     }
 }
+
+public class AnyCommand : ICommand
+{
+    public void Execute()
+    {
+        Console.WriteLine("Any command has executed");
+    }
+}
