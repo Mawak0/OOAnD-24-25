@@ -1,4 +1,4 @@
-using SpaceBattle.Lib;
+namespace SpaceBattle.Lib;
 using Moq;
 
 public class Angle: IVector

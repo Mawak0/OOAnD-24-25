@@ -2,8 +2,8 @@
 
 public interface IRotate
 {
-    int[] PositionAngle { get; set;}
-    int[] VelocityAngle { get; }
+    Angle PositionAngle { get; set;}
+    Angle VelocityAngle { get; }
 }
 
 public interface ICommand
@@ -13,19 +13,13 @@ public interface ICommand
 
 public class RotateCommand : ICommand
 {
-    private readonly IRotate obj;
+    private IRotate obj;
     public RotateCommand(IRotate obj)
     {
         this.obj = obj;
     }
     public void Execute()
     {
-        obj.PositionAngle = new int[]{
-            obj.PositionAngle[0] + obj.VelocityAngle[0],
-            obj.PositionAngle[1] + 0,
-        };
-
-        obj.PositionAngle[0] = obj.PositionAngle[0] % obj.PositionAngle[1];
-
+        obj.PositionAngle += obj.VelocityAngle;
     }
 }
