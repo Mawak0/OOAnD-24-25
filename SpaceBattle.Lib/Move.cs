@@ -6,11 +6,6 @@ public interface IMoving
     Vector Velocity { get; }
 }
 
-public interface ICommand
-{
-    public void Execute();
-}
-
 public class MoveCommand : ICommand
 {
     private readonly IMoving obj;
