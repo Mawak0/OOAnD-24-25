@@ -1,39 +1,65 @@
+﻿using System.Collections.ObjectModel;
+
+namespace SpaceBattle.Lib;
+
 public interface ICommand
 {
     public void Execute();
 }
 
-public class Start: ICommand
+public class Start : ICommand
 {
-    ICommand exCom;
-    public void Execute(){
-        queue.Add(exCom);
-    }
+    private readonly ICommand exCom;
+    private readonly Queue refQueue;
 
-    public void SetCommand(ICommand c){
+    public Start(ref Queue q, ICommand c)
+    {
         exCom = c;
+        refQueue = q;
+    }
+    public void Execute()
+    {
+        refQueue.Add(exCom);
     }
 }
 
-public class End: ICommand
+public class End : ICommand
 {
-    public void Execute(){
-        queue.Take();
+    private readonly Queue refQueue;
+
+    public End(ref Queue q)
+    {
+        refQueue = q;
+    }
+    public void Execute()
+    {
+        refQueue.Take();
     }
 }
 
-public class MCommand: ICommand
+public class MCommand : ICommand
 {
-    ICommand com;
-    object rcom;
+    private readonly ICommand com;
 
-    public MCommand(ICommand c, ref ICommand rc){
+    private readonly Queue refQueue;
+
+    public MCommand(ref Queue q, ICommand c)
+    {
+        refQueue = q;
         com = c;
-        rcom = rc;
     }
 
-    public void Execute(){
+    public void Execute()
+    {
         com.Execute();
-        queue.Add(rcom);
+        refQueue.Add(com);
+    }
+}
+
+public class AnyCommand : ICommand
+{
+    public void Execute()
+    {
+        Console.WriteLine("Any command has executed");
     }
 }
