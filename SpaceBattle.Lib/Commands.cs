@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
 
 public interface ICommand
 {
