@@ -16,3 +16,7 @@ internal class RepeatCommand : ICommand
     }
 }
 
+internal interface Injectable
+{
+    void Inject(ICommand cmd);
+}
