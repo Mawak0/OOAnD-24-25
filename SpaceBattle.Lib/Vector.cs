@@ -1,4 +1,5 @@
 ﻿namespace SpaceBattle.Lib;
+using Moq;
 
 public interface IVector
 {
@@ -8,30 +9,25 @@ public interface IVector
 
 public class Vector : IVector
 {
-    private int[] elements;
+    private readonly IVector obj;
 
-    public Vector(int size)
+    public Vector(IVector obj)
     {
-        elements = new int[size];
-    }
-    public Vector(int[] values)
-    {
-        elements = new int[values.Length];
-        values.CopyTo(elements, 0);
+        this.obj = obj;
     }
 
     public int this[int index]
     {
-        get => elements[index];
-        set => elements[index] = value;
+        get => obj.Values[index];
+        set => obj.Values[index] = value;
     }
 
     public int[] Values
     {
-        get => elements;
-        set => elements = value;
+        get => obj.Values;
+        set => obj.Values = value;
     }
-    public int Length => elements.Length;
+    public int Length => obj.Values.Length;
 
     public static Vector operator +(Vector v1, Vector v2)
     {
@@ -41,7 +37,10 @@ public class Vector : IVector
         }
 
         var result = v1.Values.Zip(v2.Values, (a, b) => a + b).ToArray();
-        return new Vector(result);
+        var mockVector = new Mock<IVector>();
+        mockVector.SetupGet(m => m.Values).Returns(result);
+        var resVector = new Vector(mockVector.Object);
+        return resVector;
     }
     public static bool operator ==(Vector v1, Vector v2)
     {
@@ -70,11 +69,11 @@ public class Vector : IVector
 
     public override int GetHashCode()
     {
-        return elements.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
+        return obj.Values.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
     }
 
     public override string ToString()
     {
-        return $"[{string.Join(", ", elements)}]";
+        return $"[{string.Join(", ", obj.Values)}]";
     }
 }
