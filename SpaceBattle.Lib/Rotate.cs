@@ -1,14 +1,8 @@
 ﻿namespace SpaceBattle.Lib;
-
 public interface IRotate
 {
-    Angle PositionAngle { get; set;}
+    Angle PositionAngle { get; set; }
     Angle VelocityAngle { get; }
-}
-
-public interface ICommand
-{
-    public void Execute();
 }
 
 public class RotateCommand : ICommand
