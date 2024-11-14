@@ -7,7 +7,7 @@ public interface IRotate
 
 public class RotateCommand : ICommand
 {
-    private IRotate obj;
+    private readonly IRotate obj;
     public RotateCommand(IRotate obj)
     {
         this.obj = obj;

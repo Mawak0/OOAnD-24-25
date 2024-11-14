@@ -9,16 +9,23 @@ public class RotateCommandTest
     [Fact]
     public void RotateCommandPositive()
     {
-        var rotating = new Mock<IRotate>();
-        
-        rotating.SetupGet(m => m.PositionAngle).Returns(new Angle{1, 8}).Verifiable();
-        rotating.SetupGet(m => m.VelocityAngle).Returns(new Angle{2, 8}).Verifiable();
 
-        ICommand rotateCommand = new RotateCommand(rotating.Object);
+        var moqAng1 = new Mock<IVector>();
+        moqAng1.SetupGet(v => v.Values).Returns(new int[] { 1, 8 }).Verifiable();
 
-        rotateCommand.Execute();
+        var moqAng2 = new Mock<IVector>();
+        moqAng2.SetupGet(v => v.Values).Returns(new int[] { 2, 8 }).Verifiable();
 
-        rotating.VerifySet(m => m.PositionAngle = [3, 8], Times.Once);
-        rotating.VerifyAll();
+        var angle1 = new Angle(moqAng1.Object);
+        var angle2 = new Angle(moqAng2.Object);
+
+        var mockRotating = new Mock<IRotate>();
+        mockRotating.SetupGet(v => v.PositionAngle).Returns(angle1).Verifiable();
+        mockRotating.SetupGet(v => v.VelocityAngle).Returns(angle2).Verifiable();
+
+        ICommand command = new RotateCommand(mockRotating.Object);
+        command.Execute();
+
+        mockRotating.VerifySet(v => v.PositionAngle = angle1 + angle2, Times.Once);
     }
 }

@@ -1,7 +1,7 @@
-namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
 using Moq;
 
-public class Angle: IVector
+public class Angle : IVector
 {
     private readonly IVector obj;
     public Angle(IVector obj)
@@ -12,7 +12,7 @@ public class Angle: IVector
     public int this[int index]
     {
         get => obj.Values[index];
-        set 
+        set
         {
             obj.Values[index] = value;
             makeCorrect();
@@ -21,15 +21,17 @@ public class Angle: IVector
 
     public int[] Values
     {
-       get => obj.Values;
-       set => obj.Values = value;
+        get => obj.Values;
+        set => obj.Values = value;
     }
     public int Length => obj.Values.Length;
 
     public void makeCorrect()
     {
         if (obj.Values[0] > obj.Values[1])
+        {
             obj.Values[0] -= obj.Values[1];
+        }
     }
 
     public override string ToString()
@@ -40,28 +42,34 @@ public class Angle: IVector
     public static Angle operator +(Angle a1, Angle a2)
     {
         if (a1[1] != a2[1])
+        {
             throw new ArgumentException("Angels must be with the same denominator");
+        }
         else
         {
-            var result = new int[]{a1[0] + a2[0], a1[1]};
+            var result = new int[] { a1[0] + a2[0], a1[1] };
             var mockAngle = new Mock<IVector>();
             mockAngle.SetupGet(a => a.Values).Returns(result);
             var resAngle = new Angle(mockAngle.Object);
             resAngle.makeCorrect();
             return resAngle;
         }
-        
     }
 
     public static bool operator ==(Angle a1, Angle a2)
     {
         if (a1[1] != a2[1])
+        {
             throw new ArgumentException("Angels must be with the same denominator");
+        }
         else
         {
             double[] coefs = [a1[0] / a2[0], a1[1] / a2[1]];
             if (coefs[0] == (int)coefs[0] && coefs[1] == (int)coefs[1])
+            {
                 return coefs[0] == coefs[1];
+            }
+
             return false;
         }
     }
@@ -72,13 +80,12 @@ public class Angle: IVector
     }
 
     public override bool Equals(object obj)
-        {
-            return obj is Angle angle && this == angle;
-        }
+    {
+        return obj is Angle angle && this == angle;
+    }
 
     public override int GetHashCode()
-        {
-            return obj.Values.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
-        }
-
+    {
+        return obj.Values.Aggregate(17, (current, value) => current * 23 + value.GetHashCode());
+    }
 }
