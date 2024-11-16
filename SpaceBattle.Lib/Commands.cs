@@ -58,11 +58,3 @@ public class EmptyCommand : ICommand
 {
     public void Execute() { }
 }
-
-public class AnyCommand : ICommand
-{
-    public void Execute()
-    {
-        Console.WriteLine("Any command has executed");
-    }
-}
