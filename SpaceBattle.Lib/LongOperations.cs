@@ -10,9 +10,9 @@ internal class RepeatCommand : ICommand
         _toRepeat = toRepeat;
     }
 
-    private void Execute()
+    public void Execute()
     {
-        _Queue.Add(_toRepeat);
+        _q.Add(_toRepeat);
     }
 }
 
