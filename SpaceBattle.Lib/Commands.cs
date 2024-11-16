@@ -54,10 +54,8 @@ public class MCommand : ICommand
     }
 }
 
-public class AnyCommand : ICommand
+public class EmptyCommand : ICommand
 {
-    public void Execute()
-    {
-        Console.WriteLine("Any command has executed");
-    }
+    public void Execute() { }
 }
+
