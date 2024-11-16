@@ -56,7 +56,7 @@ public class MCommand : ICommand
 
 public class EmptyCommand : ICommand
 {
-    public void Execute() {}
+    public void Execute() { }
 }
 
 public class AnyCommand : ICommand
