@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 namespace SpaceBattle.Lib.Tests;
 
 public class CommandTests
@@ -7,7 +7,7 @@ public class CommandTests
     public void CommandStartTest()
     {
         var queue = new Queue();
-        var cmd = new AnyCommand();
+        var cmd = new EmptyCommand();
         var startCmd = new Start(ref queue, cmd);
         startCmd.Execute();
 
@@ -18,7 +18,7 @@ public class CommandTests
     public void CommandEndTest()
     {
         var queue = new Queue();
-        var cmd = new AnyCommand();
+        var cmd = new EmptyCommand();
         var startCmd = new Start(ref queue, cmd);
         startCmd.Execute();
         var endCmd = new End(ref queue);
@@ -31,7 +31,7 @@ public class CommandTests
     public void MCommandTest()
     {
         var queue = new Queue();
-        var cmd = new AnyCommand();
+        var cmd = new EmptyCommand();
         var mc = new MCommand(ref queue, cmd);
         mc.Execute();
 
