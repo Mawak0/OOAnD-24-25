@@ -1,6 +1,6 @@
 ﻿namespace SpaceBattle.Lib;
 
-internal class RepeatCommand : ICommand
+public class RepeatCommand : ICommand
 {
     private readonly Queue _q;
     private readonly ICommand _toRepeat;
@@ -16,7 +16,7 @@ internal class RepeatCommand : ICommand
     }
 }
 
-internal interface Injectable
+public interface Injectable
 {
     void Inject(ICommand cmd);
 }
