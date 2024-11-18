@@ -9,7 +9,7 @@ public interface IVector
 
 public class Vector : IVector
 {
-    private readonly IVector obj;
+    private IVector obj;
 
     public Vector(IVector obj)
     {
