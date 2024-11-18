@@ -7,7 +7,7 @@ public class QueueTests
     public void QueueTest()
     {
         var queue = new Queue();
-        var command = new AnyCommand();
+        var command = new EmptyCommand();
         queue.Add(command);
 
         Assert.Equal(command, queue.Take());

@@ -1,6 +1,19 @@
 ﻿using Xunit;
 namespace SpaceBattle.Lib.Tests;
 
+public class CommandToTest: ICommand
+{
+    int cnt;
+
+    public void Execute(){
+        cnt++;
+    }
+
+    public int getCount(){
+        return cnt;
+    }
+}
+
 public class CommandTests
 {
     [Fact]
@@ -30,11 +43,12 @@ public class CommandTests
     [Fact]
     public void MCommandTest()
     {
-        var queue = new Queue();
-        var cmd = new AnyCommand();
-        var mc = new MCommand(ref queue, cmd);
+        var ctt1 = new CommandToTest();
+        var ctt2 = new CommandToTest();
+        List<ICommand> lst = [ctt1, ctt2];
+        var mc = new MCommand(lst);
         mc.Execute();
 
-        Assert.Equal(cmd, queue.Take());
+        Assert.Equal(2, ctt1.getCount() + ctt2.getCount());
     }
 }
