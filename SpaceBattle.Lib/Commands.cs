@@ -1,4 +1,5 @@
 ﻿namespace SpaceBattle.Lib;
+using System.Linq;
 
 public interface ICommand
 {
@@ -35,22 +36,14 @@ public class End : ICommand
     }
 }
 
-public class MCommand : ICommand
-{
-    private readonly ICommand com;
-
-    private readonly Queue refQueue;
-
-    public MCommand(ref Queue q, ICommand c)
-    {
-        refQueue = q;
-        com = c;
+public class MCommand : ICommand{
+    private List<ICommand> cmds;
+    public MCommand(List<ICommand> cmds) {
+        this.cmds = cmds;
     }
 
-    public void Execute()
-    {
-        com.Execute();
-        refQueue.Add(com);
+    public void Execute() {
+        cmds.ForEach(c => c.Execute());
     }
 }
 
