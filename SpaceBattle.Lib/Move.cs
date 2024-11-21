@@ -20,7 +20,9 @@ public class MovingAdapter : IMoving
         get
         {
             if (_dictionary.TryGetValue(nameof(Position), out var value) && value is Vector vector)
+            {
                 return vector;
+            }
 
             return default;
         }
@@ -32,7 +34,9 @@ public class MovingAdapter : IMoving
         get
         {
             if (_dictionary.TryGetValue(nameof(Velocity), out var value) && value is Vector vector)
+            {
                 return vector;
+            }
 
             return default;
         }
@@ -52,23 +56,27 @@ public class MoveCommand : ICommand
     }
 }
 
-public interface StartMoveOrder {
-    IDictionary<string, object> GameObject {get;}
-    Vector velocity {get; }
+public interface StartMoveOrder
+{
+    IDictionary<string, object> GameObject { get; }
+    Vector velocity { get; }
 }
 
-public class StartMoveCommand: ICommand{
+public class StartMoveCommand : ICommand
+{
     private readonly StartMoveOrder _order;
     private readonly Queue _queue;
-    public StartMoveCommand(StartMoveOrder order,  Queue queue){
-        _order = order; 
+    public StartMoveCommand(StartMoveOrder order, Queue queue)
+    {
+        _order = order;
         _queue = queue;
     }
-    public void Execute(){
+    public void Execute()
+    {
         IMoving MovingGameObject = new MovingAdapter(_order.GameObject);
 
         var moveCommand = new MoveCommand(MovingGameObject);
-        
+
         var injectable = new InjectableCommand();
 
         var repeat = new RepeatCommand(_queue, injectable);
@@ -80,12 +88,15 @@ public class StartMoveCommand: ICommand{
     }
 }
 
-public class StopMoveCommand: ICommand{
+public class StopMoveCommand : ICommand
+{
     private readonly IDictionary<string, object> _gameObject;
-    public StopMoveCommand(IDictionary<string, object> gameObject){
+    public StopMoveCommand(IDictionary<string, object> gameObject)
+    {
         _gameObject = gameObject;
     }
-    public void Execute(){
+    public void Execute()
+    {
         var injectable = (Injectable)_gameObject["repeatableMove"];
         injectable.Inject(new EmptyCommand());
     }
