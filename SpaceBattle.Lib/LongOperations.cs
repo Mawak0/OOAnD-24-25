@@ -21,7 +21,7 @@ public interface Injectable
     void Inject(ICommand cmd);
 }
 
-public class InjectableMacroCommand : ICommand, Injectable
+public class InjectableCommand : ICommand, Injectable
 {
     private ICommand _cmd = new EmptyCommand();
     public void Execute()
