@@ -61,13 +61,7 @@ public class Angle : IVector
         }
         else
         {
-            double[] coefs = [a1[0] / a2[0], a1[1] / a2[1]];
-            if (coefs[0] == (int)coefs[0] && coefs[1] == (int)coefs[1])
-            {
-                return coefs[0] == coefs[1];
-            }
-
-            return false;
+            return a1[0] == a2[0];
         }
     }
 
