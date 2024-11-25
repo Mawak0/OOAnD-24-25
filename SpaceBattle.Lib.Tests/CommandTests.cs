@@ -1,15 +1,17 @@
 ﻿using Xunit;
 namespace SpaceBattle.Lib.Tests;
 
-public class CommandToTest: ICommand
+public class CommandToTest : ICommand
 {
-    int cnt;
+    private int cnt;
 
-    public void Execute(){
+    public void Execute()
+    {
         cnt++;
     }
 
-    public int getCount(){
+    public int getCount()
+    {
         return cnt;
     }
 }
@@ -50,5 +52,12 @@ public class CommandTests
         mc.Execute();
 
         Assert.Equal(2, ctt1.getCount() + ctt2.getCount());
+    }
+
+    [Fact]
+    public void EmptyCommandTest()
+    {
+        var empty_cmd = new EmptyCommand();
+        empty_cmd.Execute();
     }
 }

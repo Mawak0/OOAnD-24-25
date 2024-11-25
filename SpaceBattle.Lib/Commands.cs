@@ -1,6 +1,4 @@
 ﻿namespace SpaceBattle.Lib;
-using System.Linq;
-
 public interface ICommand
 {
     public void Execute();
@@ -36,13 +34,16 @@ public class End : ICommand
     }
 }
 
-public class MCommand : ICommand{
-    private List<ICommand> cmds;
-    public MCommand(List<ICommand> cmds) {
+public class MCommand : ICommand
+{
+    private readonly List<ICommand> cmds;
+    public MCommand(List<ICommand> cmds)
+    {
         this.cmds = cmds;
     }
 
-    public void Execute() {
+    public void Execute()
+    {
         cmds.ForEach(c => c.Execute());
     }
 }
