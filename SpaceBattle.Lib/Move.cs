@@ -74,7 +74,7 @@ public class StartMoveCommand : ICommand
     public void Execute()
     {
         IMoving MovingGameObject = new MovingAdapter(_order.GameObject);
-
+        _order.GameObject["Velocity"] = _order.velocity;
         var moveCommand = new MoveCommand(MovingGameObject);
 
         var injectable = new InjectableCommand();
