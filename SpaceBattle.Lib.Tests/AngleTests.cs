@@ -174,20 +174,6 @@ public class AngleTests
 
         Assert.Equal(new int[] {3, 5}, angle1.Values);
     }
-
-    [Fact]
-    public void Execute_SetValues()
-    {
-        var moqAngle1 = new Mock<IVector>();
-        moqAngle1.SetupGet(v => v.Values).Returns(new int[] { 3, 5 });
-
-        var angle1 = new Angle(moqAngle1.Object);
-
-        angle1.Values = new int[] {11, 33};
-
-        Assert.Equal(new int[] {11, 33}, angle1.Values);
-    }
-
     
     [Fact]
     public void Execute_GetHashCode()

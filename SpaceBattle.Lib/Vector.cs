@@ -4,12 +4,12 @@ using Moq;
 public interface IVector
 {
     public int Length { get; }
-    public int[] Values { get; set; }
+    public int[] Values { get; }
 }
 
 public class Vector : IVector
 {
-    private IVector obj;
+    private readonly IVector obj;
 
     public Vector(IVector obj)
     {
@@ -22,11 +22,7 @@ public class Vector : IVector
         set => obj.Values[index] = value;
     }
 
-    public int[] Values
-    {
-        get => obj.Values;
-        set => obj.Values = value;
-    }
+    public int[] Values => obj.Values;
     public int Length => obj.Values.Length;
 
     public static Vector operator +(Vector v1, Vector v2)

@@ -19,11 +19,8 @@ public class Angle : IVector
         }
     }
 
-    public int[] Values
-    {
-        get => obj.Values;
-        set => obj.Values = value;
-    }
+    public int[] Values => obj.Values;
+
     public int Length => obj.Values.Length;
 
     public void makeCorrect()

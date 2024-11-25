@@ -182,24 +182,6 @@ public class VectorTests
     }
 
     [Fact]
-    public void Execute_SetValues()
-    {
-        var moqVector = new Mock<IVector>();
-        moqVector.SetupGet(v => v.Values).Returns(new int[] { 3, 5 });
-
-        var vector = new Vector(moqVector.Object);
-
-        var moqResVector = new Mock<IVector>();
-        moqResVector.SetupGet(v => v.Values).Returns(new int[] { 10, 20 });
-
-        var resVector = new Vector(moqResVector.Object);
-
-        vector.Values = [10, 20];
-
-        Assert.Equal(resVector.Values, vector.Values);
-    }
-
-    [Fact]
     public void Execute_GetHashCode()
     {
         var moqVector1 = new Mock<IVector>();
