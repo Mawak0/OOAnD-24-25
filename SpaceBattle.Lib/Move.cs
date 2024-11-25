@@ -19,9 +19,9 @@ public class MovingAdapter : IMoving
     {
         get
         {
-            if (_dictionary.TryGetValue(nameof(Position), out var value) && value is Vector vector)
+            if (_dictionary.TryGetValue(nameof(Position), out var value))
             {
-                return vector;
+                return (Vector)value;
             }
 
             return default;
@@ -33,9 +33,9 @@ public class MovingAdapter : IMoving
     {
         get
         {
-            if (_dictionary.TryGetValue(nameof(Velocity), out var value) && value is Vector vector)
+            if (_dictionary.TryGetValue(nameof(Velocity), out var value))
             {
-                return vector;
+                return (Vector)value;
             }
 
             return default;
